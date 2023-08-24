@@ -24,7 +24,7 @@ engine = create_engine(connection_url, module=pypyodbc)  # module=pypyodbc keywo
 
 
 # READ Excel Sheet. Each sheet will be a dic item.
-excel_file = pd.read_excel('budgetApp\static\XLS230701143346.xls', sheet_name=None)
+excel_file = pd.read_excel('budgetApp\data\input_transactions.xls', sheet_name=None)
 
 # REPLACE THE TEMP TABLE IN SQL SERVER
 # LOOP through Dic. Use .items() to select all the items in the Dic.(Sheet_name = Key , df_data = Value)
