@@ -14,9 +14,9 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
 
     @app.callback(
         Output(ids.DESCRIP_DROPDOWN, 'value'),
-        [Input(ids.YEAR_DROPDOWN, 'Value'),
-         Input(ids.MONTH_DROPDOWN, 'Value'),
-         Input(ids.SELECT_ALL_DESCRIP_BUTTON, 'n_clicks')]
+        [Input(ids.YEAR_DROPDOWN, 'value'),
+         Input(ids.MONTH_DROPDOWN, 'value'),
+         Input(ids.SELECT_ALL_DESCRIP_BUTTON, 'n_clicks')],
     )
 
     def select_all_descrip(years: list[str], months: list[str] , _: int) -> list[str]:
@@ -25,12 +25,13 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
 
     return html.Div(
         children=[
-            html.H6("Months"),
+            html.H6("Descriptions"),
             dcc.Dropdown(
                 id=ids.DESCRIP_DROPDOWN,
                 options=[{"label": descrip, "value": descrip} for descrip in unique_descrip],
                 value= unique_descrip,
-                multi=True
+                multi=True,
+                placeholder="Select"
             ), 
             html.Button(
                 className='dropdown-button',

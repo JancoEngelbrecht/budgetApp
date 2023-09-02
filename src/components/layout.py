@@ -1,11 +1,12 @@
-from dash import Dash, html
-from . import bar_chart
-from . import pie_chart
+from dash import Dash, html, dash_table
 import pandas as pd
 
-from . import descrip_dropdown
-from . import year_dropdown
-from . import month_dropdown
+from src.components import (
+    bar_chart,
+    descrip_dropdown,
+    month_dropdown,
+    year_dropdown,
+)
 
 def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
     return html.Div(
@@ -13,14 +14,15 @@ def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
         children=[
             html.H1(app.title),
             html.Hr(),
-            html.Div(
-                className='dropdown-container',
-                children=[
-                    year_dropdown.render(app, data),
-                    month_dropdown.render(app, data),
-                    descrip_dropdown.render(app, data)
-                ]
-            ),
+            dash_table.DataTable(data=data.to_dict('records'), page_size=10),
+            # html.Div(
+            #     className='dropdown-container',
+            #     children=[
+            #         year_dropdown.render(app, data),
+            #         month_dropdown.render(app, data),
+            #         descrip_dropdown.render(app, data)
+            #     ]
+            # ),
             bar_chart.render(app, data),
         ]
 

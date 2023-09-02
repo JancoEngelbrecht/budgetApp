@@ -12,8 +12,8 @@ def main() -> None:
     app = Dash(external_stylesheets=[BOOTSTRAP])
     app.title = "Financial Dashboard"
     app.layout = create_layout(app, data)
-    app.run()
+    app.run(debug=True)
 
-
+#  The main.py file will only run directly and can not be executed by running a different file. 
 if __name__ == "__main__":
     main()

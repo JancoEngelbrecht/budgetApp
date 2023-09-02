@@ -29,42 +29,53 @@ excel_file = pd.read_excel('budgetApp\data\input_transactions.xls', sheet_name=N
 # REPLACE THE TEMP TABLE IN SQL SERVER
 # LOOP through Dic. Use .items() to select all the items in the Dic.(Sheet_name = Key , df_data = Value)
 for sheet_name, df_exceldata in excel_file.items():
-    print(f'Loading worksheet {sheet_name}...')
+    print(f'Loading transactions {sheet_name}...')
     df_exceldata = pd.DataFrame(df_exceldata)
-    df_exceldata.rename(columns = {'mutationcode':'currancy','description':'descrip'}, inplace =True) # Rename Column
+    df_exceldata.rename(columns = {'mutationcode':'currancy','description':'descrip'}, inplace =True) # Rename Columns
     df_exceldata.to_sql('temporary_table', engine, if_exists='replace', index=False) # Replace Temp Table in DB
 
+shops_excel = pd.read_excel('budgetApp\data\shops.xls', sheet_name=None)
 
+# APPEND DATA TO SHOPS TABLE IN SQL SERVER
+# Clear the shops table in SQL server before running this code. 
+# for sheet_name, df_shopdata in shops_excel.items():
+#     print(f'Loading shops {sheet_name}...')
+#     shops_excel = pd.DataFrame(df_shopdata)
+#     df_shopdata.to_sql('shops', engine, if_exists='append', index=False)
+
+
+# MERGE TEMP DATA WITH MAIN DATA TO ENSURE NO DUPLICATES
 # Engine.begin() run and commit an transaction - "Begin transaction immediately"
-with engine.begin() as connection:  # Add Temp Table Data to Main Table
+with engine.begin() as connection: 
     connection.execute(text(f"""INSERT INTO {TABLE_NAME} 
                             SELECT * FROM temporary_table 
                             WHERE NOT EXISTS (SELECT 1 FROM {TABLE_NAME} 
                                               WHERE temporary_table.descrip = {TABLE_NAME}.descrip)""")) 
     
 
-
+# CREATE PANDAS DATAFRAME OF MAIN TABLE AND FORMAT THE DATE COLUMNS
 df_main = pd.read_sql(f'SELECT * FROM {TABLE_NAME}', engine)
 df_main['valuedate'] = pd.to_datetime(df_main['valuedate'], format ='%Y%m%d')
 df_main['transactiondate'] = pd.to_datetime(df_main['transactiondate'], format ='%Y%m%d')
 
-df_shops = pd.read_sql_table('shop', engine)
-
-
-for row in df_shops['desc_contains']:
+# CREATE PANDAS DATAFRAME OF SHOPS TABLE AND CLEAN THE MAIN TABLE DESCRIPTIONS 
+df_shops = pd.read_sql_table('shops', engine)
+for row in df_shops['ID']:
     df_main.loc[df_main['descrip'].str.contains(row), 'descrip'] = row
 
+# CREATE MAIN TABLE IN SQL
+df_main.to_sql('main_table', engine, if_exists='replace', index=False)
 
+# SELECT JOINED MAIN AND SHOP TABLE FOR EXPORT    
+df_main = pd.read_sql(""" SELECT main_table.valuedate,main_table.amount, shops.Name ,shops.Category
+                                FROM main_table
+                                INNER JOIN shops
+                                ON main_table.descrip = shops.ID""", engine)
+
+# EXPORT JOINED MAIN AND SHOP TABLE
 df_main.to_csv('BudgetApp/data/export.csv')
 
 print(df_main)
 
-# albertheijn_df = df[df['descrip'].str.contains('|'.join(['ALBERT','AH to go']))]
-
-# Engine.connect() pull data from the database - "Wait until statement is executed before beginning the transaction"
-# with engine.connect() as connection:
-#     table = connection.execute(text(f"SELECT * FROM {TABLE_NAME}"))
-#     for row in table:
-#         print(row.descrip)
 
 
