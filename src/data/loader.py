@@ -1,14 +1,10 @@
 import pandas as pd
 
 class DataSchema:
-    ACCOUNTNUMBER = "accountnumber"
-    CURRANCY = "currancy"
-    STARTSALDO = "startsaldo"
-    ENDSALDO = "endsaldo"
+    NAME = 'name'
     AMOUNT = "amount"
-    DESCRIP = "descrip"
-    TRANSACTIONDATE = "transactiondate"
     VALUEDATE = "valuedate"
+    CATEGORY = "category"
     MONTH = "month"
     YEAR = 'year'
 
@@ -19,14 +15,11 @@ def load_transaction_data(path: str) -> pd.DataFrame:
     data = pd.read_csv(
         path,
         dtype={
-            DataSchema.ACCOUNTNUMBER: int,
-            DataSchema.CURRANCY: str,
-            DataSchema.STARTSALDO: float,
-            DataSchema.ENDSALDO: float,
             DataSchema.AMOUNT: float,
-            DataSchema.DESCRIP: str,
+            DataSchema.NAME: str,
+            DataSchema.CATEGORY: str,
             },
-            parse_dates=[DataSchema.VALUEDATE,DataSchema.TRANSACTIONDATE]
+            parse_dates=[DataSchema.VALUEDATE]
     )
     data[DataSchema.YEAR] = data[DataSchema.VALUEDATE].dt.year.astype(str)
     data[DataSchema.MONTH] = data[DataSchema.VALUEDATE].dt.month.astype(str)

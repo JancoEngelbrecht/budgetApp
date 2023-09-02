@@ -9,7 +9,7 @@ from src.data.loader import DataSchema
 
 
 def render(app: Dash, data: pd.DataFrame) -> html.Div:
-    all_descrip: list[str] = data[DataSchema.DESCRIP].tolist()
+    all_descrip: list[str] = data[DataSchema.CATEGORY].tolist()
     unique_descrip: list[str] = sorted(set(all_descrip))
 
     @app.callback(
@@ -21,7 +21,7 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
 
     def select_all_descrip(years: list[str], months: list[str] , _: int) -> list[str]:
         filtered_data = data.query('year in @years and month in @months')
-        return sorted(set(filtered_data[DataSchema.DESCRIP].tolist()))
+        return sorted(set(filtered_data[DataSchema.CATEGORY].tolist()))
 
     return html.Div(
         children=[
