@@ -6,6 +6,7 @@ from src.components import (
     descrip_dropdown,
     month_dropdown,
     year_dropdown,
+    bar_chart_two,
 )
 
 def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
@@ -23,7 +24,13 @@ def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
                     descrip_dropdown.render(app, data)
                 ]
             ),
-            bar_chart.render(app, data),
+            html.Div(
+                className='bar-chart',
+                children=[
+                    bar_chart.render(app, data),
+                    bar_chart_two.render(app, data),
+                ]
+            ),
         ]
 
     )

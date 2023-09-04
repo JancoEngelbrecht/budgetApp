@@ -8,13 +8,13 @@ import plotly.express as px
 
 def render(app: Dash, data: pd.DataFrame) -> html.Div:
     @app.callback(
-        Output(ids.BAR_CHART, 'children'),
+        Output(ids.BAR_CHART_TWO, 'children'),
         [Input(ids.YEAR_DROPDOWN, 'value'),
          Input(ids.MONTH_DROPDOWN, 'value'),
          Input(ids.DESCRIP_DROPDOWN, 'value')]
     )
 
-    def update_bar_chart(years: list[str], months: list[str], categorys: list[str]) -> html.Div:
+    def update_bar_chart_two(years: list[str], months: list[str], categorys: list[str]) -> html.Div:
         filtered_data = data.query('year in @years and month in @months and category in @categorys')
 
         if filtered_data.shape[0] == 0:
@@ -23,7 +23,7 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
         def create_pivot_table() -> pd.DataFrame:
             pt = filtered_data.pivot_table(
                 values=DataSchema.AMOUNT, 
-                index=[DataSchema.CATEGORY],
+                index=[DataSchema.MONTH],
                 aggfunc='sum',
                 fill_value=0
             )
@@ -31,9 +31,9 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
 
         fig = px.bar(
             create_pivot_table(),
-            x = DataSchema.CATEGORY,
+            x = DataSchema.MONTH,
             y = DataSchema.AMOUNT,
-            color=DataSchema.CATEGORY
+            color=DataSchema.MONTH
         )
-        return html.Div(dcc.Graph(figure=fig), id=ids.BAR_CHART)
-    return html.Div(id=ids.BAR_CHART)
+        return html.Div(dcc.Graph(figure=fig), id=ids.BAR_CHART_TWO)
+    return html.Div(id=ids.BAR_CHART_TWO)

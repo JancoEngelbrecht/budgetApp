@@ -7,3 +7,4 @@ SELECT_ALL_MONTH_BUTTON = 'select-all-months-button'
 
 BAR_CHART = 'bar-chart'
 PIE_CHART = 'pie-chart'
+BAR_CHART_TWO = 'bar-chart-2'
