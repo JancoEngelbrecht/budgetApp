@@ -5,6 +5,13 @@ SELECT_ALL_DESCRIP_BUTTON = 'select-all-descrip-button'
 SELECT_ALL_YEAR_BUTTON = 'select-all-years-button'
 SELECT_ALL_MONTH_BUTTON = 'select-all-months-button'
 
+DESCRIP_DROPDOWN_TWO = 'descrip-dropdown-two'
+YEAR_DROPDOWN_TWO = 'year-dropdown-two'
+MONTH_DROPDOWN_TWO = 'month-dropdown-two'
+SELECT_ALL_DESCRIP_BUTTON_TWO = 'select-all-descrip-button-two'
+SELECT_ALL_YEAR_BUTTON_TWO = 'select-all-years-button-two'
+SELECT_ALL_MONTH_BUTTON_TWO = 'select-all-months-button-two'
+
 BAR_CHART = 'bar-chart'
 PIE_CHART = 'pie-chart'
 BAR_CHART_TWO = 'bar-chart-2'

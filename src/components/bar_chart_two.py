@@ -9,12 +9,12 @@ import plotly.express as px
 def render(app: Dash, data: pd.DataFrame) -> html.Div:
     @app.callback(
         Output(ids.BAR_CHART_TWO, 'children'),
-        [Input(ids.YEAR_DROPDOWN, 'value'),
-         Input(ids.MONTH_DROPDOWN, 'value'),
+        [Input(ids.YEAR_DROPDOWN_TWO, 'value'),
+         Input(ids.MONTH_DROPDOWN_TWO, 'value'),
          Input(ids.DESCRIP_DROPDOWN, 'value')]
     )
 
-    def update_bar_chart_two(years: list[str], months: list[str], categorys: list[str]) -> html.Div:
+    def update_bar_chart(years: list[str], months: list[str], categorys: list[str]) -> html.Div:
         filtered_data = data.query('year in @years and month in @months and category in @categorys')
 
         if filtered_data.shape[0] == 0:
