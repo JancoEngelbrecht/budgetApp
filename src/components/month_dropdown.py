@@ -16,7 +16,6 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
         Output(ids.MONTH_DROPDOWN, 'value'),
         [Input(ids.YEAR_DROPDOWN, 'value'),Input(ids.SELECT_ALL_MONTH_BUTTON, 'n_clicks')]
     )
-
     def select_all_months(years: list[str], _:int) -> list[str]:
         filtered_data = data.query('year in @years')
         return sorted(set(filtered_data[DataSchema.MONTH].tolist()))

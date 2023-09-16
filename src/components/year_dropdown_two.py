@@ -16,7 +16,6 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
         Output(ids.YEAR_DROPDOWN_TWO, 'value'),
         Input(ids.SELECT_ALL_YEAR_BUTTON_TWO, 'n_clicks'),
     )
-
     def select_all_descrip(_: int) -> list[str]:
         return unique_years
 

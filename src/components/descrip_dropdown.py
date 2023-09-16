@@ -18,7 +18,6 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
          Input(ids.MONTH_DROPDOWN, 'value'),
          Input(ids.SELECT_ALL_DESCRIP_BUTTON, 'n_clicks')],
     )
-
     def select_all_descrip(years: list[str], months: list[str] , _: int) -> list[str]:
         filtered_data = data.query('year in @years and month in @months')
         return sorted(set(filtered_data[DataSchema.CATEGORY].tolist()))

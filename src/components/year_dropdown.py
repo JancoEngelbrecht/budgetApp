@@ -17,7 +17,6 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
         # This updates the value linked with the ID. 
         # The value parameter in Year dropdow then gets overwritten. 
     )
-
     def select_all_years(_: int) -> list[str]: # This Function is linked to the callback 
         return unique_years # ['2022', '2023']
 

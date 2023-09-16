@@ -11,9 +11,8 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
         Output(ids.BAR_CHART_TWO, 'children'),
         [Input(ids.YEAR_DROPDOWN_TWO, 'value'),
          Input(ids.MONTH_DROPDOWN_TWO, 'value'),
-         Input(ids.DESCRIP_DROPDOWN, 'value')]
+         Input(ids.DESCRIP_DROPDOWN_TWO, 'value')]
     )
-
     def update_bar_chart(years: list[str], months: list[str], categorys: list[str]) -> html.Div:
         filtered_data = data.query('year in @years and month in @months and category in @categorys')
 
