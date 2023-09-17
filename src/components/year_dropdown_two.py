@@ -24,7 +24,7 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
             html.H6("Year"),
             dcc.Dropdown(
                 id=ids.YEAR_DROPDOWN_TWO,
-                options=[{"label": year, "value": year} for year in all_years],
+                options=[{"label": year, "value": year} for year in unique_years],
                 value= unique_years,
                 multi=True
             ), 

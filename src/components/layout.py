@@ -18,7 +18,7 @@ def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
         children=[
             html.H1(app.title),
             html.Hr(),
-            dash_table.DataTable(data=data.to_dict('records'), page_size=10),
+            #dash_table.DataTable(data=data.to_dict('records'), page_size=10),
             html.Div(
                 className='dropdown-container',
                 children=[
