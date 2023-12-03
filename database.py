@@ -22,7 +22,6 @@ connection_url = URL.create('mssql+pyodbc', query={'odbc_connect': connection_st
 engine = create_engine(connection_url, module=pypyodbc)  # module=pypyodbc keyword argument unique to dialect
 
 
-
 # READ Excel Sheet. Each sheet will be a dic item.
 excel_file = pd.read_excel('budgetApp\data\input_transactions.xls', sheet_name=None)
 
@@ -73,9 +72,9 @@ df_main = pd.read_sql(""" SELECT main_table.valuedate,main_table.amount, shops.N
                                 ON main_table.descrip = shops.ID""", engine)
 
 # EXPORT JOINED MAIN AND SHOP TABLE
-df_main.to_csv('BudgetApp/data/export.csv')
+df_main.to_csv('budgetApp/data/export.csv')
 
 print(df_main)
 
 
-
+#empty the transactions table too, before executing the code.
