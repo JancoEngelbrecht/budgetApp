@@ -12,7 +12,6 @@ The **Budget Tracker Application** is a web-based app that allows users to track
 
 ## Technologies Used
 - **Backend**: 
-  - [Dash](https://dash.plotly.com/): A Python framework for building analytical web applications.
   - [Pandas](https://pandas.pydata.org/): For data manipulation and analysis.
   - [SQL Server](https://www.microsoft.com/en-us/sql-server): Database management system used for storing transaction data.
 - **Frontend**:
